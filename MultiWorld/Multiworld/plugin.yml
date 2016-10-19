@@ -1,0 +1,58 @@
+name: SpigotPlus-Multiworld
+main: io.github.robotman3000.bukkit.multiworld.world.WorldManager
+version: 1.0
+depend: [SpigotPlus-API]
+description: A plugin to add multiworld support to your server
+author: robotman3001
+website: https://github.com/robotman3000/Spigot-Plus
+commands:
+   worldcreate:
+      description: Creates a world
+      usage: /<command> <World Name> [Seed] [Generator Type] [Environment] [Generate Structures]
+      permission: spigotplus.multiworld.command.create
+      permission-message: You don't have <permission>
+   worlddelete:
+      description: Deletes a world and all of its data.
+      usage: /<command> <World Name>
+      permission: spigotplus.multiworld.command.delete
+      permission-message: You don't have <permission>
+   worldconfirm:
+      description: Confirms a dangerous action
+      usage: /<command>
+      permission: spigotplus.multiworld.command.confirm
+      permission-message: You don't have <permission>
+   worldunload:
+      description: Unload a world
+      usage: /<command> <World Name>
+      permission: spigotplus.multiworld.command.unload
+      permission-message: You don't have <permission>
+   worldload:
+      description: Load a world
+      usage: /<command> <World Name>
+      permission: spigotplus.multiworld.command.load
+      permission-message: You don't have <permission>
+   worldinfo:
+      description: This allows you to get info for a world
+      usage: /<command> [World Name]
+      permission: spigotplus.multiworld.command.info
+      permission-message: You don't have <permission>
+   worldlist:
+      description: Lists all loaded worlds on the server
+      usage: /<command>
+      permission: spigotplus.multiworld.command.list
+      permission-message: You don't have <permission>
+   worldgamerule:
+      description: This allows you get and set gamerules
+      usage: /<command> [World Name] <Gamerule> (New Value)
+      permission: spigotplus.multiworld.command.gamerule
+      permission-message: You don't have <permission>
+   worldproperty:
+      description: Get and set the properties of a world
+      usage: /<command> [World Name] <Property> (New Value)
+      permission: spigotplus.multiworld.command.property
+      permission-message: You don't have <permission>
+   worldgoto:
+      description: Teleport to a world
+      usage: /<command> <World Name> [Player]
+      permission: spigotplus.multiworld.command.teleport
+      permission-message: You don't have <permission>
