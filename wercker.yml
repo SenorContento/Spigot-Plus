@@ -18,10 +18,10 @@ build:
         code: which java
     - script:
         name: CD and Making META-INF Directory (Reoccuring CD Due to Steps Resetting Back to Root)
-        code: cd MultiWorld/src/ && mkdir META-INF
+        code: cd MultiWorld && mkdir */META-INF
     - script:
         name: List Directories (Debug Purposes)
-        code: cd MultiWorld/src/ && ls && ls META-INF
+        code: cd MultiWorld && ls && ls */META-INF
     - script:
         name: Compiling BuildTools to Latest Version
         code: java -jar BuildTools.jar --rev latest
@@ -30,10 +30,10 @@ build:
         code: find
     - script:
         name: Compiling .java files to .class files
-        code: cd MultiWorld/src/ && javac $(find | grep .java) -classpath ../../Spigot/Spigot-API/target/spigot-api-*-shaded.jar
+        code: cd MultiWorld && javac $(find | grep .java) -classpath ../Spigot/Spigot-API/target/spigot-api-*-shaded.jar
     - script:
         name: Packaging plugin source code and binaries into Jar file
-        code: "cd MultiWorld/src/ && jar cf SpigotPlus-$(cat plugin.yml | grep version | sed 's/version: //').jar ."
+        code: "cd MultiWorld && jar cf SpigotPlus-$(cat */plugin.yml | grep version | sed 's/version: //').jar ."
     - script:
         name: List All Files (Debug Purposes)
         code: find
@@ -46,7 +46,7 @@ deploy:
         code: apt-get update && apt-get install -y curl file zip && rm -rf /var/lib/apt/lists/*
     - script:
         name: Versioning
-        code: "export APP_VERSION=$(cat MultiWorld/src/plugin.yml | grep version | sed 's/version: //')"
+        code: "export APP_VERSION=$(cat MultiWorld/*/plugin.yml | grep version | sed 's/version: //')"
     - script:
         name: List All Files (Debug Purposes)
         code: find
@@ -55,7 +55,7 @@ deploy:
         tag: v$(echo $APP_VERSION)
     - github-upload-asset:
         token: $GITHUB_TOKEN
-        file: "MultiWorld/src/SpigotPlus-$(cat MultiWorld/src/plugin.yml | grep version | sed 's/version: //').jar"
+        file: "MultiWorld/*/SpigotPlus-$(cat MultiWorld/*/plugin.yml | grep version | sed 's/version: //').jar"
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
   nightly:
     - script:
@@ -66,10 +66,10 @@ deploy:
         code: export TIME=$(date +%s)
     - script:
         name: Adding Nightly to Build
-        code: "mv MultiWorld/src/SpigotPlus-$(cat MultiWorld/src/plugin.yml | grep version | sed 's/version: //').jar MultiWorld/src/SpigotPlus-$(cat MultiWorld/src/plugin.yml | grep version | sed 's/version: //')-nightly$(echo $TIME).jar"
+        code: "mv MultiWorld/*/SpigotPlus-$(cat MultiWorld/*/plugin.yml | grep version | sed 's/version: //').jar MultiWorld/*/SpigotPlus-$(cat MultiWorld/*/plugin.yml | grep version | sed 's/version: //')-nightly$(echo $TIME).jar"
     - script:
         name: Versioning
-        code: "export APP_VERSION=$(cat MultiWorld/src/plugin.yml | grep version | sed 's/version: //')"
+        code: "export APP_VERSION=$(cat MultiWorld/*/plugin.yml | grep version | sed 's/version: //')"
     - script:
         name: List All Files (Debug Purposes)
         code: find
@@ -78,7 +78,7 @@ deploy:
         tag: v$(echo $APP_VERSION)-nightly$(echo $TIME)
     - github-upload-asset:
         token: $GITHUB_TOKEN
-        file: "MultiWorld/src/SpigotPlus-$(cat MultiWorld/src/plugin.yml | grep version | sed 's/version: //')-nightly$(echo $TIME).jar"
+        file: "MultiWorld/*/SpigotPlus-$(cat MultiWorld/*/plugin.yml | grep version | sed 's/version: //')-nightly$(echo $TIME).jar"
         release_id: $WERCKER_GITHUB_CREATE_RELEASE_ID
 
   # notify slack on successful or failed deploys
